@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>የተመዘገቡ ቅጽ</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #000; color: white; margin: 0; }
+        .container { display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .form-box { background: #121212; padding: 20px; width: 90%; max-width: 400px; border-radius: 10px; box-shadow: 0px 0px 10px #ff0050; }
+        h2 { color: #ff0050; }
+        input { width: 100%; padding: 10px; margin: 10px 0; border: none; border-radius: 5px; }
+        button { background-color: #ff0050; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; width: 100%; }
+        button:hover { background-color: #e00047; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-box">
+            <h2>ይመዝገቡ</h2>
+            <form id="registerForm">
+                <input type="text" id="name" placeholder="ስም" required>
+                <input type="tel" id="phone" placeholder="ስልክ ቁጥር" required>
+                <input type="text" id="address" placeholder="አድራሻ" required>
+                <input type="number" id="age" placeholder="እድሜ" required>
+                <input type="text" id="religion" placeholder="ሃይማኖት" required>
+                <button type="submit">መዝግብ</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("registerForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            let data = {
+                name: document.getElementById("name").value,
+                phone: document.getElementById("phone").value,
+                address: document.getElementById("address").value,
+                age: document.getElementById("age").value,
+                religion: document.getElementById("religion").value
+            };
+
+            let telegramBotToken = "8020802114:AAHYlcOUf1ywo-NqpoHIs4LHrk940-k8L8Q";
+            let chatId = "7993646848";
+            let message = `New Registration:\n\nስም: ${data.name}\nስልክ ቁጥር: ${data.phone}\nአድራሻ: ${data.address}\nእድሜ: ${data.age}\nሃይማኖት: ${data.religion}`;
+
+            let url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+            
+            fetch(url)
+                .then(response => alert("Registration Sent to Telegram!"))
+                .catch(error => alert("Error Sending Data!"));
+        });
+    </script>
+</body>
+</html>
